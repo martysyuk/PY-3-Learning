@@ -1,8 +1,11 @@
-import sys
-print(sys.stdout.encoding)
+# Домашнее задание по уроку 2.1
+# «Открытие и чтение файла, запись в файл»
+# Выполнил Мартысюк Илья PY-3
+
+# В Windows 10 Russian у меня проблема с выводом руссих слов из файла,
+# по этому список блюд и продуктов сделан на английском.
 
 with open('lesson2-1.txt', 'r') as f:
     for index, line in enumerate(f):
         line = line.strip()
-        # print(index+1)
         print(line)
