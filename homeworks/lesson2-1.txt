@@ -1,16 +1,16 @@
-Омлет
+Omlete
 3
 Egg | 2 | pcs.
 Milk | 150 | ml.
 Tomato | 100 | g.
-
 Steak
-3
+4
 Beef | 300 | g.
 Salt | 3 | g.
 Pepper | 5 | g.
-
+Sunflower oil | 50 | ml.
 French fries
+3
 Potatoes | 1500 | g.
 Salt | 15 | g.
 Sunflower oil | 50 | ml.

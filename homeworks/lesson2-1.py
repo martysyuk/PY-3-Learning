@@ -6,6 +6,9 @@
 # по этому список блюд и продуктов сделан на английском.
 
 with open('lesson2-1.txt', 'r') as f:
+    title_line_number = 0
     for index, line in enumerate(f):
-        line = line.strip()
-        print(line)
+        if index == title_line_number:
+            print(line.rstrip())
+        elif line.rstrip().isdigit():
+            title_line_number += int(line)+2
