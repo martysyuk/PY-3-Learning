@@ -88,8 +88,9 @@ def visum_and_budget():
     return vis_and_bud
 
 
-
 get_country_lists()
+done_list = set()
+done_list.update(warm_and_sea_list())
+done_list.update(visum_and_budget())
 
-print('Теплые страны с морем: {}'.format(warm_and_sea_list()))
-print('Страны находятся в Шенгене: {}'.format(visum_and_budget()))
+print('По Вашим критериям подходят: {}'.format(done_list))
