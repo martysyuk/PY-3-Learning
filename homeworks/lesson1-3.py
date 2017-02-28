@@ -1,10 +1,9 @@
 # Домашнее задание третьего урока.
 # Выполнил Мартысюк Илья, группа PY-3
 
-warm_country_list = set()
-sea_country_list = set()
-visum_country_list = set()
-budget_ok_country_list = set()
+sea_and_warm_countries = set()
+visa_countries = set()
+budget_ok_countries = set()
 
 countries = {
   'Thailand': {'sea': True,
@@ -50,47 +49,15 @@ trip_lenght = int(input('Введите продолжительность пу�
 
 def get_country_lists():
   for country_name, country_info in countries.items():
-    if country_info['sea']:
-        sea_country_list.add(country_name)
-    if country_info['warm']:
-        warm_country_list.add(country_name)
+    if country_info['sea'] & country_info['warm']:
+        sea_and_warm_countries.add(country_name)
     if country_info['visum']:
-        visum_country_list.add(country_name)
+        visa_countries.add(country_name)
     if (budget / country_info['exRate']) >= (country_info['dayBill'] * trip_lenght):
-        budget_ok_country_list.add(country_name)
-
-
-def warm_and_sea_list():
-    warm_and_sea = set()
-    if len(sea_country_list) >= len(warm_country_list):
-        for sea in sea_country_list:
-            if (sea in warm_country_list) & (sea in budget_ok_country_list):
-                warm_and_sea.add(sea)
-    else:
-        for warm in warm_country_list:
-            if (warm in sea_country_list) & (warm in budget_ok_country_list):
-                warm_and_sea.add(warm)
-
-    return warm_and_sea
-
-
-def visum_and_budget():
-    vis_and_bud = set()
-    if len(visum_country_list) >= len(budget_ok_country_list):
-        for visum in visum_country_list:
-            if visum in budget_ok_country_list:
-                vis_and_bud.add(visum)
-    else:
-        for budget in budget_ok_country_list:
-            if budget in warm_country_list:
-                vis_and_bud.add(budget)
-
-    return vis_and_bud
+        budget_ok_countries.add(country_name)
 
 
 get_country_lists()
-done_list = set()
-done_list.update(warm_and_sea_list())
-done_list.update(visum_and_budget())
+done_list = ((sea_and_warm_countries | visa_countries) & budget_ok_countries)
 
 print('По Вашим критериям подходят: {}'.format(done_list))
