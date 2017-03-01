@@ -89,3 +89,12 @@ ENV/
 .ropeproject
 *.secret
 .idea/*
+colors.scheme.xml
+conda_packages.xml
+github_settings.xml
+ide.general.xml
+ui.lnf.xml
+vcs.xml
+web-browsers.xml
+IntelliLang.xml
+_mac/*
