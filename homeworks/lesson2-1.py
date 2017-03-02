@@ -1,43 +1,33 @@
+# -*- coding: utf-8 -*-
 # Домашнее задание по уроку 2-1
 # «Открытие и чтение файла, запись в файл»
 # Выполнил Мартысюк Илья PY-3
 
-cook_book = dict()
-# 'Омлет': {
-#     'name': 'Омлет',
-#     'ingridients': [
-#         {'product': 'Яйца', 'quantity': 2, 'unit': 'шт'},
-#         {'product': 'Молоко', 'quantity': 50, 'unit': 'мл'},
-#         {'product': 'Помидор', 'quantity': 100, 'unit': 'г'},
-#     ]
-# }
-
 
 def cook_book_open():
-    ingridients = list()
+    cook_book = dict()
     with open('lesson2-1.txt', 'r', encoding='UTF8') as f:
         line = f.readline()
         while line:
             dish_name = line.rstrip()
             ingridients_count = int(f.readline())
-            cook_book.update({dish_name: {'name': dish_name, 'ingridients': []}})
+            cook_book[dish_name] = {'name': dish_name, 'ingridients': []}
 
             for i in range(ingridients_count):
-                ingridients.append(f.readline().rstrip().split(' | '))
-
-            for i in range(ingridients_count):
-                cook_book[dish_name]['ingridients'] += [{'product': ingridients[i][0],
-                                                                   'quantity': int(ingridients[i][1]),
-                                                                   'unit': ingridients[i][2]}]
+                ingridients = (f.readline().rstrip().split(' | '))
+                cook_book[dish_name]['ingridients'] += [{'product': ingridients[0],
+                                                         'quantity': int(ingridients[1]),
+                                                         'unit': ingridients[2]}]
 
             line = f.readline()
-            ingridients = list()
+
+    return cook_book
 
 
 def get_shop_list_by_dishes(dishes, people_count):
     shop_list = {}
     for dish in dishes:
-         for ingridient in dish['ingridients']:
+        for ingridient in dish['ingridients']:
             new_shop_item = dict(ingridient)
             # пересчитали ингрединты по количеству людей
             new_shop_item['quantity'] = new_shop_item['quantity'] * people_count
@@ -55,6 +45,7 @@ def print_shop_list(shop_list):
 
 def create_shop_list(people_count, first_dish, second_dish, third_dish):
     # получить блюда из кулинарной книги
+    cook_book = cook_book_open()
     dish1 = cook_book[first_dish]
     dish2 = cook_book[second_dish]
     dish3 = cook_book[third_dish]
@@ -73,8 +64,6 @@ print('Выберите третье блюдо: ')
 third_dish = input()
 print('На сколько человек?')
 people_count = int(input())
-
-cook_book_open()
 
 print('\nСписок покупок: ')
 create_shop_list(people_count, first_dish, second_dish, third_dish)
