@@ -18,7 +18,6 @@ def cook_book_open():
                 cook_book[dish_name]['ingridients'] += [{'product': ingridients[0],
                                                          'quantity': int(ingridients[1]),
                                                          'unit': ingridients[2]}]
-
             line = f.readline()
 
     return cook_book
