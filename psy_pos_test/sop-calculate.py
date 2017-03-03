@@ -49,18 +49,14 @@ girls_delinquency_behavior_keys_no = [93]
 women_social_role_keys_yes = [93, 95, 105, 107]
 women_social_role_keys_no = [3, 5, 9, 16, 18, 25, 41, 45, 51, 58, 61, 68, 73, 85, 96, 106]
 
-key = dict()
-
+key_balls = dict()
+keys_name = ['social_orient_balance', 'over_rules_balance', 'addictive_behavior', 'self_harm_behavior',
+        'aggression_behavior', 'emotional_reaction', 'delinquency_behavior', 'women_social_role']
 
 def add_person_in_dicts(person_in):
-    keys = {person_in: {'social_orient_balance': 0,
-                        'over_rules_balance': 0,
-                        'addictive_behavior': 0,
-                        'self_harm_behavior': 0,
-                        'aggression_behavior': 0,
-                        'emotional_reaction': 0,
-                        'delinquency_behavior': 0,
-                        'women_social_role': 0}}
+    keys = {person_in: {'social_orient_balance': 0, 'over_rules_balance': 0, 'addictive_behavior': 0,
+                        'self_harm_behavior': 0, 'aggression_behavior': 0, 'emotional_reaction': 0,
+                        'delinquency_behavior': 0, 'women_social_role': 0}}
     return keys
 
 
@@ -69,56 +65,71 @@ def counting_individual_balls(data, person):
         if data[person]['Пол'] == 'м':  # Подсчет балов для Мальчиков
             if (int(data[person]['Выбор'][i]) in boys_social_orient_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_social_orient_keys_no):
-                key[person]['social_orient_balance'] += 1
+                key_balls[person]['social_orient_balance'] += 1
             if (int(data[person]['Выбор'][i]) in boys_over_rules_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_over_rules_keys_no):
-                key[person]['over_rules_balance'] += 1
+                key_balls[person]['over_rules_balance'] += 1
             if (int(data[person]['Выбор'][i]) in boys_addictive_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_addictive_behavior_keys_no):
-                key[person]['addictive_behavior'] += 1
+                key_balls[person]['addictive_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in boys_self_harm_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_self_harm_behavior_keys_no):
-                key[person]['self_harm_behavior'] += 1
+                key_balls[person]['self_harm_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in boys_aggression_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_aggression_behavior_keys_no):
-                key[person]['aggression_behavior'] += 1
+                key_balls[person]['aggression_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in boys_emotional_reaction_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_emotional_reaction_keys_no):
-                key[person]['emotional_reaction'] += 1
+                key_balls[person]['emotional_reaction'] += 1
             if (int(data[person]['Выбор'][i]) in boys_delinquency_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in boys_delinquency_behavior_keys_no):
-                key[person]['delinquency_behavior'] += 1
+                key_balls[person]['delinquency_behavior'] += 1
 
         if data[person]['Пол'] == 'ж':  # Подсчет балов для Девочек
             if (int(data[person]['Выбор'][i]) in girls_social_orient_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_social_orient_keys_no):
-                key[person]['social_orient_balance'] += 1
+                key_balls[person]['social_orient_balance'] += 1
             if (int(data[person]['Выбор'][i]) in girls_over_rules_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_over_rules_keys_no):
-                key[person]['over_rules_balance'] += 1
+                key_balls[person]['over_rules_balance'] += 1
             if (int(data[person]['Выбор'][i]) in girls_addictive_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_addictive_behavior_keys_no):
-                key[person]['addictive_behavior'] += 1
+                key_balls[person]['addictive_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in girls_self_harm_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_self_harm_behavior_keys_no):
-                key[person]['self_harm_behavior'] += 1
+                key_balls[person]['self_harm_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in girls_aggression_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_aggression_behavior_keys_no):
-                key[person]['aggression_behavior'] += 1
+                key_balls[person]['aggression_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in girls_emotional_reaction_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_emotional_reaction_keys_no):
-                key[person]['emotional_reaction'] += 1
+                key_balls[person]['emotional_reaction'] += 1
             if (int(data[person]['Выбор'][i]) in girls_delinquency_behavior_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in girls_delinquency_behavior_keys_no):
-                key[person]['delinquency_behavior'] += 1
+                key_balls[person]['delinquency_behavior'] += 1
             if (int(data[person]['Выбор'][i]) in women_social_role_keys_yes) | \
                     (int(data[person]['Выбор'][i]) not in women_social_role_keys_no):
-                key[person]['women_social_role'] += 1
+                key_balls[person]['women_social_role'] += 1
+
+
+def total_counting_balls():
+    key_balls.update({'Средний бал': {}})
+    for i in range(len(keys_name)):
+        key_balls['Средний бал'].update({keys_name[i]: 0})
+    for person in key_balls:
+        for i in range(len(keys_name)):
+                key_balls['Средний бал'][keys_name[i]] += key_balls[person][keys_name[i]]
+
+    for i in range(len(keys_name)):
+        key_balls['Средний бал'][keys_name[i]] = int(key_balls['Средний бал'][keys_name[i]] / (len(key_balls) - 1))
+
+    print(key_balls['Средний бал']['social_orient_balance'])
 
 
 with open('12-7a.json', 'r', encoding='utf8') as f:
     load_data = json.loads(f.read())
     for persona in load_data:
-        key.update(add_person_in_dicts(persona))
+        key_balls.update(add_person_in_dicts(persona))
         counting_individual_balls(load_data, persona)
-    print(key)
+    print(key_balls)
+    total_counting_balls()
