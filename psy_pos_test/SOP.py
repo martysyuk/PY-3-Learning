@@ -9,8 +9,8 @@ def open_json_data_file(path):
     try:
         with open(path, 'r', encoding='utf8') as f:
             try:
-                load_data = json.loads(f.read())
-                return load_data
+                data = json.loads(f.read())
+                return data
             except:
                 print('\nВ ФАЙЛЕ ДАННЫХ НЕ ОБНАРУЖЕНО\n')
                 return
@@ -28,7 +28,10 @@ def input_new_data():
         sex = input('Пол (м/ж): ')
         chooses = input('Номера отмеченных ответов через запятую (безпробелов):\n').rstrip().split(',')
 
-        input_data.update({name: {'Возреаст': age, 'Пол': sex, 'Выбор': chooses}})
+        input_data.update({name: {'Возреаст': age, 'Пол': sex, 'Выбор': chooses, 'social_orient_balance': 0,
+                                  'over_rules_balance': 0, 'addictive_behavior': 0, 'self_harm_behavior': 0,
+                                  'aggression_behavior': 0, 'emotional_reaction': 0, 'delinquency_behavior': 0,
+                                  'women_social_role': 0}})
 
     return input_data
 
@@ -39,7 +42,6 @@ def save_data_to_json_file(path, data):
 
 
 def choose_menu(data):
-    print('\n'*100)
     print('Программа обработки даных теста СОП Орлова\n\n')
     print('МЕНЮ ПРОГРАММЫ:\n\n')
     print('1. Вывести список имеющихся респондентов')
@@ -47,19 +49,20 @@ def choose_menu(data):
     print('3. Вывести результаты тестирования')
     print('q. Выход')
     choose = 0
+
     while choose != 'q':
         choose = input('\nСделайте выбор (1, 2, 3 или q): ')
         if choose == '1':
             list_data(data)
         elif choose == '2':
-            if data != None:
+            if data is not None:
                 data.update(input_new_data())
             else:
                 data = (input_new_data())
         elif choose == '3':
             asd
         elif choose == 'q':
-            if (data != {}) & (data != load_data):
+            if (data != {}):
                 save_data_to_json_file(file_name, data)
                 print('\nФАЙЛ УСПЕШНО СОХРАНЕН.')
             elif data == load_data:
@@ -69,11 +72,10 @@ def choose_menu(data):
 
 def list_data(data):
     for person in data:
-        print(person+', {} лет'.format(load_data[person]['Возреаст']))
+        print(person+', {} лет'.format(data[person]['Возреаст']))
 
 
 # file_name = input('Введите имя файла для сохранения данных: ')
 file_name = '12-7a.json'
-load_data = open_json_data_file(file_name)
 
-choose_menu(load_data)
+choose_menu(open_json_data_file(file_name))
