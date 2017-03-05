@@ -33,30 +33,47 @@ def input_new_data():
     return input_data
 
 
-def save_data_to_json_file(path):
+def save_data_to_json_file(path, data):
     with open(path, 'w', encoding='utf8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
 
 
-def choose_menu():
+def choose_menu(data):
     print('\n'*100)
     print('Программа обработки даных теста СОП Орлова\n\n')
     print('МЕНЮ ПРОГРАММЫ:\n\n')
     print('1. Вывести список имеющихся респондентов')
     print('2. Добавить новые данные')
+    print('3. Вывести результаты тестирования')
+    print('q. Выход')
+    choose = 0
+    while choose != 'q':
+        choose = input('\nСделайте выбор (1, 2, 3 или q): ')
+        if choose == '1':
+            list_data(data)
+        elif choose == '2':
+            if data != None:
+                data.update(input_new_data())
+            else:
+                data = (input_new_data())
+        elif choose == '3':
+            asd
+        elif choose == 'q':
+            if (data != {}) & (data != load_data):
+                save_data_to_json_file(file_name, data)
+                print('\nФАЙЛ УСПЕШНО СОХРАНЕН.')
+            elif data == load_data:
+                print('\nНЕ БЫЛО ВНЕСЕНО НОВЫХ ДАННЫХ')
+            break
+
+
+def list_data(data):
+    for person in data:
+        print(person+', {} лет'.format(load_data[person]['Возреаст']))
 
 
 # file_name = input('Введите имя файла для сохранения данных: ')
 file_name = '12-7a.json'
 load_data = open_json_data_file(file_name)
-if load_data != None:
-    data = load_data
-    data.update(input_new_data())
-else:
-    data = (input_new_data())
 
-if data != {}:
-    save_data_to_json_file(file_name)
-    print('\nФАЙЛ УСПЕШНО СОХРАНЕН.')
-else:
-    print('\nНЕ БЫЛО ВНЕСЕНО НОВЫХ ДАННЫХ')
+choose_menu(load_data)
