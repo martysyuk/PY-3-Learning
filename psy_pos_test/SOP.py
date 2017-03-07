@@ -1,6 +1,7 @@
 # -*- coding: utf8 -*-
 # Программа генирации файла JSON с данными ответов по тесту СОП Орлова
 
+
 import json
 
 
@@ -41,6 +42,11 @@ def save_data_to_json_file(path, data):
         json.dump(data, f, ensure_ascii=False, indent=2, sort_keys=True)
 
 
+def list_data(data):
+    for person in data:
+        print(person + ', {} лет'.format(data[person]['Возреаст']))
+
+
 def choose_menu(data):
     print('Программа обработки даных теста СОП Орлова\n\n')
     print('МЕНЮ ПРОГРАММЫ:\n\n')
@@ -68,11 +74,6 @@ def choose_menu(data):
             elif data == load_data:
                 print('\nНЕ БЫЛО ВНЕСЕНО НОВЫХ ДАННЫХ')
             break
-
-
-def list_data(data):
-    for person in data:
-        print(person+', {} лет'.format(data[person]['Возреаст']))
 
 
 # file_name = input('Введите имя файла для сохранения данных: ')

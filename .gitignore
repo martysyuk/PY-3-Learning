@@ -99,3 +99,10 @@ web-browsers.xml
 IntelliLang.xml
 _mac/*
 .idea/
+/colors.scheme.xml
+/editor.xml
+/conda_packages.xml
+/debugger.xml
+/diff.xml
+/IntelliLang.xml
+/web-browsers.xml
