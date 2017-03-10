@@ -1,12 +1,31 @@
 {
-  "has_it": {
-    "boys": {
-      "social_orient": [
+  "boys_keys": [
+    "social_orient_balance",
+    "over_rules_balance",
+    "addictive_behavior",
+    "self_harm_behavior",
+    "aggression_behavior",
+    "emotional_reaction",
+    "delinquency_behavior"
+  ],
+  "girls_keys": [
+    "social_orient_balance",
+    "over_rules_balance",
+    "addictive_behavior",
+    "self_harm_behavior",
+    "aggression_behavior",
+    "emotional_reaction",
+    "delinquency_behavior",
+    "women_social_role"
+  ],  
+  "boys": {
+    "has_it": {
+      "social_orient_balance": [
         13,
         30,
         32
       ],
-      "over_rules": [
+      "over_rules_balance": [
         11,
         22,
         34,
@@ -119,13 +138,60 @@
         94
       ]
     },
-    "girls": {
-      "social_orient": [
+    "has_not": {
+      "social_orient_balance": [
+        2,
+        4,
+        6,
+        21,
+        23,
+        33,
+        38,
+        47,
+        54,
+        79,
+        83,
+        87
+      ],
+      "over_rules_balance": [
+        1,
+        10,
+        55,
+        61,
+        86,
+        93
+      ],
+      "addictive_behavior": [
+        95
+      ],
+      "self_harm_behavior": [
+        24,
+        76
+      ],
+      "aggression_behavior": [
+        15,
+        40,
+        75,
+        82
+      ],
+      "emotional_reaction": [
+        29
+      ],
+      "delinquency_behavior": [
+        55,
+        61,
+        86
+      ]
+    }
+  },
+  "girls": {
+    "has_it": {
+      "social_orient_balance": [
         13,
         30,
         32
       ],
-      "over_rules": [
+      "over_rules_balance": [
         1,
         11,
         22,
@@ -244,62 +310,15 @@
         99,
         102
       ],
-      "social_role": [
+      "women_social_role": [
         93,
         95,
         105,
         107
       ]
-    }
-  },
-  "has_not": {
-    "boys": {
-      "social_orient": [
-        2,
-        4,
-        6,
-        21,
-        23,
-        33,
-        38,
-        47,
-        54,
-        79,
-        83,
-        87
-      ],
-      "over_rules": [
-        1,
-        10,
-        55,
-        61,
-        86,
-        93
-      ],
-      "addictive_behavior": [
-        95
-      ],
-      "self_harm_behavior": [
-        24,
-        76
-      ],
-      "aggression_behavior": [
-        15,
-        40,
-        75,
-        82
-      ],
-      "emotional_reaction": [
-        29
-      ],
-      "delinquency_behavior": [
-        55,
-        61,
-        86
-      ]
     },
-    "girls": {
-      "social_orient": [
+    "has_not": {
+      "social_orient_balance": [
         2,
         4,
         8,
@@ -311,7 +330,7 @@
         83,
         87
       ],
-      "over_rules": [
+      "over_rules_balance": [
         10,
         86,
         93
@@ -332,7 +351,7 @@
       "delinquency_behavior": [
         93
       ],
-      "social_role": [
+      "women_social_role": [
         3,
         5,
         9,
