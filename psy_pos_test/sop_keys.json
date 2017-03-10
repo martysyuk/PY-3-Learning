@@ -17,7 +17,25 @@
     "emotional_reaction",
     "delinquency_behavior",
     "women_social_role"
-  ],  
+  ],
+  "s_balls": {
+    "social_orient_balance" : 2.06,
+    "over_rules_balance": 2.88,
+    "addictive_behavior": 4.59,
+    "self_harm_behavior": 3.41,
+    "aggression_behavior": 4.23,
+    "emotional_reaction": 3.29,
+    "delinquency_behavior": 4.05
+  },
+  "m_balls": {
+    "social_orient_balance" : 2.27,
+    "over_rules_balance": 7.73,
+    "addictive_behavior": 9.23,
+    "self_harm_behavior": 10.36,
+    "aggression_behavior": 12.47,
+    "emotional_reaction": 8.04,
+    "delinquency_behavior": 7.17
+  },
   "boys": {
     "has_it": {
       "social_orient_balance": [
