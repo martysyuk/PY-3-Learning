@@ -3,10 +3,41 @@
 # «Работа с разными форматами данных»
 # Выполнил Мартысюк Илья PY-3
 
-import codecs
-import json
-import pprint
 
-with codecs.open('./lesson2-2/newsfr.json', encoding="iso8859_5") as news:
-    pp = pprint.PrettyPrinter(indent=2)
-    pp.pprint(json.load(news))
+import xml.etree.cElementTree as ET
+import re
+
+
+def open_data_file(path, encoding):
+    parser = ET.XMLParser(encoding=encoding)
+    tree = ET.parse(path, parser=parser)
+    root = tree.getroot()
+    return root
+
+
+def compile_data(root):
+    long_dict = dict()
+    for i in root.iter('description'):
+        cleanr = re.compile(r'<.*?>|[^\w\s]+|[\d]+|[a-z]+|[A-Z]+|[\n]')
+        cleantext = cleanr.sub('', i.text)
+        temp_list = cleantext.split(' ')
+        for t in temp_list:
+            if len(t) > 6:
+                try:
+                    long_dict[t] += 1
+                except KeyError:
+                    long_dict.update({t: 1})
+
+    long_dict = sorted(long_dict.items(), key=lambda x: x[1], reverse=True)
+
+    return long_dict
+
+
+def print_result(long_dict):
+    print('ТОП 10 самых часто встречающихся слов:')
+    for i in range(9):
+        print('{}) Слово "{}" встречается {} раз'.format(i+1, long_dict[i][0], long_dict[i][1]))
+
+path = './lesson2-2/newsafr.xml'
+encoding = 'utf-8'
+print_result(compile_data(open_data_file(path, encoding)))
