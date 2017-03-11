@@ -39,6 +39,7 @@ def print_result(long_dict):
     for i in range(10):
         print('{}) Слово "{}" встречается {} раз'.format(i+1, long_dict[i][0], long_dict[i][1]))
 
+
 path = './lesson2-2/newsafr.xml'
 encoding = 'utf-8'
 print_result(compile_data(open_data_file(path, encoding)))
