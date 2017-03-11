@@ -20,7 +20,7 @@ def compile_data(root):
     for i in root.iter('description'):
         cleanr = re.compile(r'<.*?>|[^\w\s]+|[\d]+|[a-z]+|[A-Z]+|[\n]')
         cleantext = cleanr.sub('', i.text)
-        temp_list = cleantext.split(' ')
+        temp_list = cleantext.strip().split(' ')
         for t in temp_list:
             if len(t) > 6:
                 try:
@@ -29,6 +29,7 @@ def compile_data(root):
                     long_dict.update({t: 1})
 
     long_dict = sorted(long_dict.items(), key=lambda x: x[1], reverse=True)
+    print(long_dict)
 
     return long_dict
 
