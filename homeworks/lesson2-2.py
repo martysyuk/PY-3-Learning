@@ -35,7 +35,7 @@ def compile_data(root):
 
 def print_result(long_dict):
     print('ТОП 10 самых часто встречающихся слов:')
-    for i in range(9):
+    for i in range(10):
         print('{}) Слово "{}" встречается {} раз'.format(i+1, long_dict[i][0], long_dict[i][1]))
 
 path = './lesson2-2/newsafr.xml'
