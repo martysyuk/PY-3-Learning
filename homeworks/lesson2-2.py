@@ -4,13 +4,14 @@
 # Выполнил Мартысюк Илья PY-3
 
 
-import xml.etree.cElementTree as ET
 import re
-
+import glob
+from os.path import join
+from xml.etree.cElementTree import XMLParser, parse
 
 def open_data_file(path, encoding):
-    parser = ET.XMLParser(encoding=encoding)
-    tree = ET.parse(path, parser=parser)
+    parser = XMLParser()
+    tree = parse(path, parser=parser)
     root = tree.getroot()
     return root
 
@@ -40,6 +41,15 @@ def print_result(long_dict):
         print('{}) Слово "{}" встречается {} раз'.format(i+1, long_dict[i][0], long_dict[i][1]))
 
 
-path = './lesson2-2/newsafr.xml'
+def get_xml_file_list(path):
+    work_dir = 'lesson2-2'
+    return glob.glob(join(path, '*.xml'))
+
+path = 'lesson2-2'
+files = get_xml_file_list(path)
+
 encoding = 'utf-8'
-print_result(compile_data(open_data_file(path, encoding)))
+for file in files:
+    print('\nОбработка файла {}'.format(file))
+    print_result(compile_data(open_data_file(file, encoding)))
+
