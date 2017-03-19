@@ -20,9 +20,9 @@ def open_data_file(path):
 def compile_data(root):
     long_dict = dict()
     for i in root.iter('description'):
-        cleanr = re.compile(r'<.*?>|[^\w\s]+|[\d]+|[a-z]+|[A-Z]+|[\n]')
-        cleantext = cleanr.sub('', i.text)
-        temp_list = cleantext.strip().split(' ')
+        clean_re = re.compile(r'<.*?>|[^\w\s]+|[\d]+|[a-z]+|[A-Z]+|[\n]')
+        clean_text = clean_re.sub('', i.text)
+        temp_list = clean_text.strip().split(' ')
         for t in temp_list:
             if len(t) > 6:
                 try:
