@@ -9,7 +9,8 @@ import glob
 from os.path import join
 from xml.etree.cElementTree import XMLParser, parse
 
-def open_data_file(path, encoding):
+
+def open_data_file(path):
     parser = XMLParser()
     tree = parse(path, parser=parser)
     root = tree.getroot()
@@ -41,15 +42,9 @@ def print_result(long_dict):
         print('{}) Слово "{}" встречается {} раз'.format(i+1, long_dict[i][0], long_dict[i][1]))
 
 
-def get_xml_file_list(path):
-    work_dir = 'lesson2-2'
-    return glob.glob(join(path, '*.xml'))
-
 path = 'lesson2-2'
-files = get_xml_file_list(path)
-
-encoding = 'utf-8'
+files = glob.glob(join(path, '*.xml'))
 for file in files:
     print('\nОбработка файла {}'.format(file))
-    print_result(compile_data(open_data_file(file, encoding)))
+    print_result(compile_data(open_data_file(file)))
 
