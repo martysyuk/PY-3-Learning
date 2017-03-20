@@ -4,4 +4,3 @@ Authon: Martysyuk Ilya
 E-Mail: martysyuk@gmail.com
 """
 
-print(__name__)
