@@ -6,17 +6,17 @@
 
 import re
 import glob
+import chardet
 from os.path import join
 from xml.etree.cElementTree import XMLParser, parse
 
 
 def open_data_file(path):
-    try:
-        parser = XMLParser()
-        tree = parse(path, parser=parser)
-    except:
-        print('Ошибка открытия файла.')
-        exit(0)
+    with open(path, 'rb') as encoding_detect_file:
+        file_text = encoding_detect_file.read()
+        encoding = chardet.detect(file_text)['encoding']
+    parser = XMLParser(encoding=encoding)
+    tree = parse(path, parser=parser)
     root = tree.getroot()
     return root
 
