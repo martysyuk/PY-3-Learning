@@ -11,8 +11,12 @@ from xml.etree.cElementTree import XMLParser, parse
 
 
 def open_data_file(path):
-    parser = XMLParser()
-    tree = parse(path, parser=parser)
+    try:
+        parser = XMLParser()
+        tree = parse(path, parser=parser)
+    except:
+        print('Ошибка открытия файла.')
+        exit(0)
     root = tree.getroot()
     return root
 
