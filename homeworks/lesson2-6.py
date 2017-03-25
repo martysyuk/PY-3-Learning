@@ -23,11 +23,10 @@ def subprocess_run(image_files, source_dir, result_dir):
         get_file_name = join(source_dir, file_name)
         done_file_name = join(result_dir, file_name)
         # convert input.jpg -resize 200 output.jpg
-        process = Popen(['convert', get_file_name, '-resize', '200', done_file_name])#, stdout=PIPE, stderr=PIPE)
+        process = Popen(['convert', get_file_name, '-resize', '200', done_file_name], stdout=PIPE, stderr=PIPE)
         process.communicate()
         if process.returncode != 0:
             print('ОШИБКА конвертации файла {}.'.format(file_name))
-            print(process.returncode)
         else:
             print('Конвертация файла {} успешно завершина'.format(file_name))
 
