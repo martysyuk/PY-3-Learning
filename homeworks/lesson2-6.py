@@ -31,8 +31,10 @@ def subprocess_run(image_files, source_dir, result_dir):
             print('Конвертация файла {} успешно завершина'.format(file_name))
 
 
+# Папки относительно директории с Python файлом.
 source_folder = 'Source'
 result_folder = 'Result'
+# Файл convert.exe должен лежать в тойже папке что и Python файл.
+
 files_list = get_image_files_list(source_folder)
 subprocess_run(files_list, source_folder, result_folder)
-
