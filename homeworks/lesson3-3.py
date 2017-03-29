@@ -5,7 +5,6 @@ Authon: Martysyuk Ilya
 E-Mail: martysyuk@gmail.com
 """
 
-from pprint import PrettyPrinter as pprint
 import requests
 from os.path import join, dirname, realpath
 
