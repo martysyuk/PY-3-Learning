@@ -47,7 +47,7 @@ def open_text_file(dir, file_name):
     try:
         with open(load_file, 'r') as file:
             return file.read()
-    except:
+    except (FileNotFoundError, IOError):
         print('Файла {} не найдено.'.format(load_file))
 
 
@@ -61,16 +61,33 @@ def save_translate_to_file(lang_to_lang, text, dir):
         print('Ошибка запипи в файл {}'.format(file_name))
 
 
-def get_texts(*langs):
+def get_texts(langs):
     for lang in langs:
-        texts.update({lang: open_text_file(files_folder, lang)})
+        text = open_text_file(files_folder, lang)
+        if text:
+            texts.update({lang: text})
 
 
-get_texts('de', 'es', 'fr')
+def get_translate_languages():
+    translate_from = list()
+    translate_to = input('Введи язык на который нужно перевести (например ru, de, fr...): ')
+    print('\nВведите язык с которого нужно перевести (например ru, de, fr...).\nДля завершения ввода языков введите '
+          'пустую строку.')
+    input_text = ' '
+    while input_text != '':
+        input_text = input('Введите язык: ')
+        if input_text != '':
+            translate_from.append(input_text)
+    return translate_to, translate_from
+
+
+from_langs = list()
+to_lang, from_langs = get_translate_languages()
+get_texts(from_langs)
 for lang in texts:
     print('Переводим текст с {} на {}'.format(lang, to_lang))
     translate_text = translate_it(texts[lang], lang, to_lang)
-    lang_to_lang = lang+'-'+to_lang
+    lang_to_lang = lang + '-' + to_lang
     trans_texts.update({lang_to_lang: translate_text})
     print('Сохраняем файл с переводом {}{}'.format(lang_to_lang, files_type))
     save_translate_to_file(lang_to_lang, trans_texts[lang_to_lang], files_folder)
