@@ -2,10 +2,11 @@
 """
 Authon: Martysyuk Ilya
 E-Mail: martysyuk@gmail.com
+
+Домашнее задание 3.4
 """
 
 import osa
-import re
 
 
 def load_data(file_path):
@@ -89,5 +90,26 @@ def trip_lenght(file_path, to_unit):
     return str(summa) + to_unit
 
 
+def trip_cost(file_path, to_unit):
+    to_unit.upper()
+    url = 'http://fx.currencysystem.com/webservices/CurrencyServer4.asmx?WSDL'
+    client = osa.Client(url)
+    currencies = client.service.Currencies().split(';')
+    data = load_data(file_path)
+    summa = 0
+    if to_unit in currencies:
+        for currenc in data:
+            if currenc[2] not in currencies:
+                print('Неверный формат валюты: {}'.format(currenc[2]))
+            else:
+                summa += client.service.ConvertToNum(amount=float(currenc[1]), fromCurrency=currenc[2],
+                                                       toCurrency=to_unit, rounding=False)
+
+    else:
+        print('Неизвестная валюта конвертации: {}'.format(to_unit))
+    return str(round(summa)) + ' ' + to_unit
+
+
 print('Средняя температура {} градусов цельсия\n'.format(temp_convert('temps.txt', 'C')))
 print('Суммарное растояние путешествия {}\n'.format(trip_lenght('travel.txt', 'km')))
+print('Суммарное растояние путешествия {}\n'.format(trip_cost('currencies.txt', 'RUB')))
