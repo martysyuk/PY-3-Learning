@@ -39,3 +39,45 @@ def api_request(method, params):
                    })
     response = requests.get('https://api.vk.com/method/'+method, params)
     return response.json()
+
+
+def get_user_groups_list(_user_id):
+    try:
+        _response = api_request('groups.get', {'user_id': _user_id})['response']
+        return _response['items']
+    except KeyError:
+        _error = api_request('groups.get', {'user_id': _user_id})['error']
+        print('Error code: {}: {}'.format(_error['error_code'], _error['error_msg']))
+        return ''
+
+
+def get_user_friends_list(_user_id):
+    try:
+        _response = api_request('friends.get', {'user_id': _user_id})['response']
+        return _response['items']
+    except KeyError:
+        _error = api_request('friends.get', {'user_id': _user_id})
+        print('Error code: {}: {}'.format(_error['error_code'], _error['error_msg']))
+        return ''
+
+
+def get_users_list_in_group(_group_id):
+    try:
+        _response = api_request('groups.getMembers', {'group_id': _group_id})['response']
+        return _response['items']
+    except KeyError:
+        _error = api_request('groups.getMembers', {'group_id': _group_id})
+        print('\nError code: {}: {} (group ID: {})'.format(_error['error']['error_code'], _error['error']['error_msg'],
+                                                           _group_id))
+        return ''
+
+
+def get_group_info(_group_id):
+    try:
+        _response = api_request('groups.getById', {'group_id': _group_id, 'fields': 'description'})['response']
+        return _response[0]
+    except KeyError:
+        _error = api_request('groups.getMembers', {'group_id': _group_id})
+        print('\nError code: {}: {} (group ID: {})'.format(_error['error']['error_code'], _error['error']['error_msg'],
+                                                           _group_id))
+        return ''
