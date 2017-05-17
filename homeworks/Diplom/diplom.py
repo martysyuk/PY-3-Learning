@@ -6,16 +6,16 @@ E-Mail: martysyuk@gmail.com
 
 import config
 import vkapi as vk
-import sys
 import json
+import time
 
 
 def get_friends_list_in_user_groups(_groups, _friends):
     _groups_in = dict()
-    for _group in _groups:
+    _max_count = len(_groups)
+    for _current_count, _group in enumerate(_groups, 1):
         _user_list = vk.get_users_list_in_group(_group)
-        sys.stdout.write('.')
-        sys.stdout.flush()
+        print('Выполнено {} из {} запросов.'.format(_current_count, _max_count))
         _result = list(set(_user_list) & set(_friends))
         if not _result:
             _append = vk.get_group_info(_group)
@@ -23,6 +23,10 @@ def get_friends_list_in_user_groups(_groups, _friends):
                 _groups_in.update({_group: {'Name': _append['name'], 'Description': _append['description']}})
             except KeyError:
                 pass
+            except Exception:
+                time.sleep(1)
+                _append = vk.get_group_info(_group)
+                _groups_in.update({_group: {'Name': _append['name'], 'Description': _append['description']}})
     print('\n')
     if _groups_in:
         return _groups_in
