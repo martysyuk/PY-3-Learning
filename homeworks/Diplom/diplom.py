@@ -31,7 +31,6 @@ def save_to_json(_file, _data):
             print('Результат обработки сохранен в файл {}'.format(_file))
         except OSError:
             print('Ошибка сохранения файла.')
-    pass
 
 
 user_info = vk.get_vk_response('users.get', {'user_ids': config.USER})[0]
@@ -40,4 +39,5 @@ print('Проверяем данные для пользователя: {} {} (i
 
 groups_list = vk.get_vk_response('groups.get', {'user_id': user_id})['items']
 friends_list = vk.get_vk_response('friends.get', {'user_id': user_id})['items']
+
 save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, friends_list))
