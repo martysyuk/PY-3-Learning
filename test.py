@@ -10,11 +10,10 @@ E-Mail: martysyuk@gmail.com
 #
 # print(a)
 
-_user_list = ['a', 'b', 'c']
-_friends = ['f', 'd', 'e']
 
-_result = list(set(_user_list) & set(_friends))
+_user_list = ['f', 'a', 'b', 'c']
+_friends = ['b', 'a', 'd', 'e']
 
-print(len(_result))
+_result = list(set(_user_list) - set(_friends))
 
-print(len(_friends[:3]))
+print(_result)
