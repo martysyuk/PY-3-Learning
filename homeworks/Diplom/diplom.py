@@ -31,7 +31,7 @@ def parts(lst, n=25):
     return [lst[i:i + n] for i in iter(range(0, len(lst), n))]
 
 
-def get_friends_list_in_user_groups(_groups, _friends, _maximum_friends_count):
+def get_friends_list_in_user_groups(_groups, _friends):
 
     def compile_execute_code(_friends_ids):
         code = 'return {'
@@ -73,5 +73,4 @@ print('Проверяем данные для пользователя: {} {} (i
 groups_list = vk.get_vk_response('groups.get', {'user_id': user_id})['items'][:config.MAXIMUM_GROUPS]
 friends_list = vk.get_vk_response('friends.get', {'user_id': user_id})['items']
 
-save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, parts(friends_list),
-                                                               config.MAXIMUM_FRIENDS_COUNT))
+save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, parts(friends_list)))

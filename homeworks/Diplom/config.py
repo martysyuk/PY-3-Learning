@@ -19,6 +19,3 @@ FILE_NAME = 'groups.json'
 
 # Максимальное количество друзей в группе
 MAXIMUM_FRIENDS_COUNT = 0
-
-# Максимальное количество обрабатываемых групп
-MAXIMUM_GROUPS = 1000
