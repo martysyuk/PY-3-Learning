@@ -9,19 +9,22 @@ import vkapi as vk
 import json
 
 
-def get_friends_list_in_user_groups(_groups, _friends):
+def get_friends_list_in_user_groups(_groups, _friends, _maximum_friends_count):
     _groups_in = dict()
     _max_count = len(_groups)
     for _current_count, _group in enumerate(_groups, 1):
-        _user_list = vk.get_vk_response('groups.getMembers', {'group_id': _group})['items']
-        print('Выполнено {} из {} запросов.'.format(_current_count, _max_count))
-        _result = list(set(_user_list) & set(_friends))
-        if not _result:
-            _append = vk.get_vk_response('groups.getById', {'group_id': _group, 'fields': 'description'})[0]
-            _groups_in.update({_group: {'Name': _append['name'], 'Description': _append['description']}})
+        try:
+            _user_list = vk.get_vk_response('groups.getMembers', {'group_id': _group})['items']
+            print('Выполнено {} из {} запросов.'.format(_current_count, _max_count))
+            _result = list(set(_user_list) & set(_friends))
+            if len(_result) <= _maximum_friends_count:
+                _append = vk.get_vk_response('groups.getById', {'group_id': _group, 'fields': 'members_count'})[0]
+                _groups_in.update({_group: {'Group name': _append['name'], 'Members in group': _append['members_count'],
+                                        'Friends count': len(_result)}})
+        except TypeError:
+            pass
     print('\n')
-    if _groups_in:
-        return _groups_in
+    return _groups_in
 
 
 def save_to_json(_file, _data):
@@ -40,4 +43,4 @@ print('Проверяем данные для пользователя: {} {} (i
 groups_list = vk.get_vk_response('groups.get', {'user_id': user_id})['items']
 friends_list = vk.get_vk_response('friends.get', {'user_id': user_id})['items']
 
-save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, friends_list))
+save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, friends_list, config.MAXIMUM_FRIENDS_COUNT))

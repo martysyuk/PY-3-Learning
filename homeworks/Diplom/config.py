@@ -16,3 +16,6 @@ VERSION = '5.64'
 
 # Имя файла для сохранения
 FILE_NAME = 'groups.json'
+
+# Максимальное количество друзей в группе
+MAXIMUM_FRIENDS_COUNT = 5

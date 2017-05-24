@@ -16,7 +16,7 @@ def response_error(_response):
         time.sleep(1)
         return True
     else:
-        print('Error code: {}: {}'.format(_response['error_code'], _response['error_msg']))
+        print('Error code: {}: {}'.format(_response['error']['error_code'], _response['error']['error_msg']))
         return False
 
 
@@ -31,3 +31,5 @@ def get_vk_response(_method, _params):
         except KeyError:
             if response_error(_response):
                 continue
+            else:
+                return False
