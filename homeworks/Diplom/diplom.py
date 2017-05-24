@@ -20,7 +20,10 @@ def get_groups_data(_groups):
     for _group in _groups:
         point()
         _append = vk.get_vk_response('groups.getById', {'group_id': _group, 'fields': 'members_count'})[0]
-        _groups_in.update({_group: {'Group name': _append['name'], 'Members in group': _append['members_count']}})
+        try:
+            _groups_in.update({_group: {'Group name': _append['name'], 'Members in group': _append['members_count']}})
+        except KeyError:
+            pass
     return _groups_in
 
 
