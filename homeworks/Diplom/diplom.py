@@ -40,7 +40,7 @@ user_info = vk.get_vk_response('users.get', {'user_ids': config.USER})[0]
 user_id = user_info['id']
 print('Проверяем данные для пользователя: {} {} (id: {})'.format(user_info['last_name'], user_info['first_name'], user_id))
 
-groups_list = vk.get_vk_response('groups.get', {'user_id': user_id})['items']
+groups_list = vk.get_vk_response('groups.get', {'user_id': user_id})['items'][:config.MAXIMUM_GROUPS]
 friends_list = vk.get_vk_response('friends.get', {'user_id': user_id})['items']
 
 save_to_json(config.FILE_NAME, get_friends_list_in_user_groups(groups_list, friends_list, config.MAXIMUM_FRIENDS_COUNT))

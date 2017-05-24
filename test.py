@@ -16,3 +16,5 @@ _friends = ['f', 'd', 'e']
 _result = list(set(_user_list) & set(_friends))
 
 print(len(_result))
+
+print(len(_friends[:3]))
