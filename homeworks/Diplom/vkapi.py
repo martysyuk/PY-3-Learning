@@ -9,6 +9,7 @@ E-Mail: martysyuk@gmail.com
 import requests
 import time
 import sys
+from multiprocessing import Pool
 
 
 class VkApi:
@@ -33,10 +34,23 @@ class VkApi:
 
     def response(self, _method, _params):
         _params.update({'access_token': self.token,
-                        'v': self.api_ver
-                        })
+                        'v': self.api_ver})
         while True:
             _response = requests.get('https://api.vk.com/method/' + _method, _params).json()
+            try:
+                return _response['response']
+            except KeyError:
+                if self.response_error(_response):
+                    continue
+                else:
+                    return False
+
+    def execute(self, _code):
+        _params = {'access_token': self.token,
+                   'v': self.api_ver,
+                   'code': _code}
+        while True:
+            _response = requests.get('https://api.vk.com/method/execute', _params).json()
             try:
                 return _response['response']
             except KeyError:
@@ -58,8 +72,8 @@ class VkApi:
 
     def get_friends_list_in_user_groups(self, _groups, _friends):
 
-        def parts(lst, n=25):
-            return [lst[i:i + n] for i in iter(range(0, len(lst), n))]
+        def parts(_iterable, _count=25):
+            return list(zip(*[iter(_iterable)] * _count))
 
         def compile_execute_code(_friends_ids):
             code = 'return {'
@@ -68,18 +82,44 @@ class VkApi:
             code = '%s%s' % (code, '};')
             return code
 
-        _friends = parts(_friends)
-        _executions = list()
-        _groups_with_friends = list()
-        for _part in _friends:
-            _executions.append(compile_execute_code(_part))
-
-        for _current_count, _execut in enumerate(_executions):
-            _group_list = self.response('execute', {'code': _execut})
+        _friends = parts(parts(_friends), 3)
+        _executions = {}
+        _groups_with_friends = []
+        _code = []
+        for index, pack in enumerate(_friends):
+            try:
+                _code.append(compile_execute_code(pack[0]))
+            except IndexError:
+                pass
+            try:
+                _code.append(compile_execute_code(pack[1]))
+            except IndexError:
+                pass
+            try:
+                _code.append(compile_execute_code(pack[2]))
+            except IndexError:
+                pass
+            _executions.update({index: _code})
+            _code = []
+        for _exec in _executions:
+            with Pool(3) as pool:
+                _group_list = pool.map(self.execute, [_executions[_exec][0],
+                                                      _executions[_exec][1],
+                                                      _executions[_exec][2]])
             point()
-            for _friend in _group_list:
+            for _friend in _group_list[0]:
                 try:
-                    _groups_with_friends.extend(_group_list[_friend]['items'])
+                    _groups_with_friends.extend(_group_list[0][_friend]['items'])
+                except TypeError:
+                    pass
+            for _friend in _group_list[1]:
+                try:
+                    _groups_with_friends.extend(_group_list[1][_friend]['items'])
+                except TypeError:
+                    pass
+            for _friend in _group_list[2]:
+                try:
+                    _groups_with_friends.extend(_group_list[2][_friend]['items'])
                 except TypeError:
                     pass
         _done = list(set(_groups) - set(_groups_with_friends))
